@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: medium-app-backend
+spec:
+  selector:
+    app: medium-app-backend
+  ports:
+  - name: http
+    port: 8080

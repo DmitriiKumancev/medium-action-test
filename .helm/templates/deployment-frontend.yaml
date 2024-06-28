@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: medium-app-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: medium-app-frontend
+  template:
+    metadata:
+      labels:
+        app: medium-app-frontend
+    spec:
+      imagePullSecrets:
+      - name: registrysecret
+      containers:
+      - name: app-frontend
+        image: {{ .Values.werf.image.frontend }}
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: medium-app-frontend
+spec:
+  selector:
+    app: medium-app-frontend
+  ports:
+    - name: http
+      port: 80
